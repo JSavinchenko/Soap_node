@@ -4,16 +4,7 @@ let http = require('http'),
     url = require('url'), // чтобы отследить роут
     { parse } = require('querystring'), // чтобы правильно взять параметры из запроса
     path = require('path');
-
-/*let callback = function (err, result){
-    if (err) {
-        console.error(err);
-    } else {
-        res.end(JSON.stringify(result));
-        console.log(result);
-    }
-}*/
-
+    
 const url_scheme = "http://www.dneonline.com/calculator.asmx?wsdl"
 
 http.createServer(function(req, res) {
@@ -48,69 +39,27 @@ http.createServer(function(req, res) {
                 } else {
                     // Make SOAP request using client object
                     const args = { intA, intB };
-                    //client.Add(args, callback);
                     client.Add(args, function (err, result){
                         if (err) {
                             console.error(err);
                         } else {
-                            res.end(JSON.stringify(result)); //как :))) $$$красиво$$$ -_- вывести ответ? 
+                            res.end(JSON.stringify(result)); 
                             console.log(result);
                         }
                     });
                 }
             });
-
-            /*soap.createClient("http://www.dneonline.com/calculator.asmx?wsdl", function (err, client) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    // Make SOAP request using client object
-                    const args = { intA, intB };
-                    //client.Add(args, callback);
-                    client.Multiply(args, callback);
-                    //client.Subtract(args, callback);
-
-                    /*client.Multiply(args, function (err, result) {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(result);
-                        }
-                    });
-                }
-            });
-
-            soap.createClient("http://www.dneonline.com/calculator.asmx?wsdl", function (err, client) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    // Make SOAP request using client object
-                    const args = { intA, intB };
-                    //client.Add(args, callback);
-                    //client.Multiply(args, callback);
-                    client.Subtract(args, callback);
-
-                    /*client.Multiply(args, function (err, result) {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(result);
-                        }
-                    });
-                }
-            });*/
-            //res.end(JSON.stringify(params)); // превращаем в json строку и возвращаем
         });
     }
-    else if (req.url == '/sub' && req.method == 'POST') { // когда что-то с методом POST "постучится" в роут '/calc'
+    else if (req.url == '/sub' && req.method == 'POST') { 
         let body = '';
     
-        req.on('data', chunk => { // когда "придет" часть данных. добавляем их в body
+        req.on('data', chunk => { 
             body += chunk.toString(); 
         });
     
-        req.on('end', () => { // при завершении получения ответа. (когда уже все части данных пришли)
-            let params = parse(body); // используем функцию parse из модуля querystring
+        req.on('end', () => { 
+            let params = parse(body); 
             let intA = params.first_num;
             let intB = params.second_num;
 
@@ -132,15 +81,15 @@ http.createServer(function(req, res) {
             });
         });
     }
-    else if (req.url == '/mult' && req.method == 'POST') { // когда что-то с методом POST "постучится" в роут '/calc'
+    else if (req.url == '/mult' && req.method == 'POST') { 
         let body = '';
     
-        req.on('data', chunk => { // когда "придет" часть данных. добавляем их в body
+        req.on('data', chunk => {
             body += chunk.toString(); 
         });
     
-        req.on('end', () => { // при завершении получения ответа. (когда уже все части данных пришли)
-            let params = parse(body); // используем функцию parse из модуля querystring
+        req.on('end', () => { 
+            let params = parse(body); 
             let intA = params.first_num;
             let intB = params.second_num;
 
@@ -162,15 +111,15 @@ http.createServer(function(req, res) {
             });
         });
     }
-    else if (req.url == '/div' && req.method == 'POST') { // когда что-то с методом POST "постучится" в роут '/calc'
+    else if (req.url == '/div' && req.method == 'POST') { 
         let body = '';
     
-        req.on('data', chunk => { // когда "придет" часть данных. добавляем их в body
+        req.on('data', chunk => { 
             body += chunk.toString(); 
         });
     
-        req.on('end', () => { // при завершении получения ответа. (когда уже все части данных пришли)
-            let params = parse(body); // используем функцию parse из модуля querystring
+        req.on('end', () => { 
+            let params = parse(body); 
             let intA = params.first_num;
             let intB = params.second_num;
 
